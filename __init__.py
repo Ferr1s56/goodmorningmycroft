@@ -17,6 +17,9 @@
 
 from adapt.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_handler
+import datetime
+import requests
+from bs4 import BeautifulSoup
 
 
 
@@ -39,25 +42,47 @@ class GoodMorningSkill(MycroftSkill):
         settings will be available."""
         my_setting = self.settings.get('my_setting')
 
-    @intent_handler(IntentBuilder('ThankYouIntent').require('ThankYouKeyword'))
-    def handle_thank_you_intent(self, message):
-        """ This is an Adapt intent handler, it is triggered by a keyword."""
-        self.speak_dialog("welcome")
+  
+    @intent_handler('goodmorning.intent')
+    def handle_good_morning_intent(self, message):
+        current_time = datetime.datetime.now() 
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+        data = requests.get(
+            url = 'https://api.hypixel.net/resources/skyblock/election'
+        ).json()
+        mayor = (data['mayor']['name'])
+        res = requests.get(f'https://www.google.com/search?q=Lansdale+weather&oq=Lansdale+weather&aqs=chrome.0.35i39l2j0l4j46j69i60.6128j1j7&sourceid=chrome&ie=UTF-8',headers=headers)
+        soup = BeautifulSoup(res.text,'html.parser')   
+        info = soup.select('#wob_dc')[0].getText().strip() 
+        weather = soup.select('#wob_tm')[0].getText().strip()
 
-    @intent_handler('HowAreYou.intent')
-    def handle_how_are_you_intent(self, message):
-        """ This is a Padatious intent handler.
-        It is triggered using a list of sample phrases."""
-        self.speak_dialog("how.are.you")
+        if (str(current_time.month) == '3'):
+            month = 'March'
+        elif (str(current_time.month) == '1'):
+            month = 'January'
+        elif (str(current_time.month) == '2'):
+            month = 'February'
+        elif (str(current_time.month) == '4'):
+            month = 'April'
+        elif (str(current_time.month) == '5'):
+            month = 'May'
+        elif (str(current_time.month) == '6'):
+            month = 'June'
+        elif (str(current_time.month) == '7'):
+            month = 'July'
+        elif (str(current_time.month) == '8'):
+            month = 'August'
+        elif (str(current_time.month) == '9'):
+            month = 'September'
+        elif (str(current_time.month) == '10'):
+            month = 'October'
+        elif (str(current_time.month) == '11'):
+            month = 'November'
+        elif (str(current_time.month) == '12'):
+            month = 'December'
 
-    @intent_handler(IntentBuilder('HelloWorldIntent')
-                    .require('HelloWorldKeyword'))
-    def handle_hello_world_intent(self, message):
-        """ Skills can log useful information. These will appear in the CLI and
-        the skills.log file."""
-        self.log.info("There are five types of log messages: "
-                      "info, debug, warning, error, and exception.")
-        self.speak_dialog("hello.world")
+
+        self.speak('Good morning Ethan. Todays date is '+month+' '+str(current_time.day)+', '+str(current_time.year)+'. The weather outside is currently '+weather+' degrees and '+info+'.')
 
     def stop(self):
         pass
