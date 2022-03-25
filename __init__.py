@@ -20,9 +20,7 @@ from mycroft import MycroftSkill, intent_handler
 import datetime
 import requests
 from bs4 import BeautifulSoup
-from playsound import playsound
-import time
-import os
+
 
 
 
@@ -82,8 +80,6 @@ class GoodMorningSkill(MycroftSkill):
         elif (str(current_time.month) == '12'):
             month = 'December'
         
-        os.system('mpg123 /home/pi/mycroft-core/skills/goodmorningmycroft/mredited2.mp3')
-        time.sleep(5)
         self.speak('Good morning Ethan. Todays date is '+month+' '+str(current_time.day)+', '+str(current_time.year)+'. The weather outside is currently '+weather+' degrees and '+info+'.')
 
     def stop(self):
