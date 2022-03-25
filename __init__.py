@@ -121,7 +121,7 @@ class GoodMorningSkill(MycroftSkill):
             day = 'undefined'
             weekday = 'undefined'
         
-        self.speak('Good morning Ethan, Todays date is '+weekday+', '+month+' '+day+', '+str(current_time.year)+'. The weather outside is currently '+weather+' degrees and '+info+'.')
+        self.speak('Good morning Ethan, Todays date is '+weekday+', '+month+' '+day+', '+str(current_time.year)+', The weather outside is currently '+weather+' degrees and '+info+'.')
 
     def stop(self):
         pass
