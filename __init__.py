@@ -68,14 +68,49 @@ class GoodMorningSkill(MycroftSkill):
             '10': ['october'],
             '11': ['november'],
             '12': ['december'],
-}
+        }
+        numbertodate = {
+            '1': ['first'],
+            '2': ['second'],
+            '3': ['third'],
+            '4': ['fourth'],
+            '5': ['fifth'],
+            '6': ['sixth'],
+            '7': ['seventh'],
+            '8': ['eighth'],
+            '9': ['ninth'],
+            '10': ['tenth'],
+            '11': ['eleventh'],
+            '12': ['twelfth'],
+            '13': ['thirteenth'],
+            '14': ['fourteenth'],
+            '15': ['fifteenth'],
+            '16': ['sixteenth'],
+            '17': ['seventeenth'],
+            '18': ['eighteenth'],
+            '19': ['nineteenth'],
+            '20': ['twentieth'],
+            '21': ['twenty first'],
+            '22': ['twenty second'],
+            '23': ['twenty third'],
+            '24': ['twenty fourth'],
+            '25': ['twenty fifth'],
+            '26': ['twenty sixth'],
+            '27': ['twenty seventh'],
+            '28': ['twenty eighth'],
+            '29': ['twenty ninth'],
+            '30': ['thirtieth'],
+            '31': ['thirty first'],
+        }
 
         try:
             month = random.choice(numbertomonth[str(month)])
+            day = random.choice(numbertodate[str(current_time.day)])
         except:
             month = 'undefined'
+            day = 'undefined'
         
-        self.speak('Good morning Ethan. Todays date is '+month+' '+str(current_time.day)+', '+str(current_time.year)+'. The weather outside is currently '+weather+' degrees and '+info+'.')
+        self.speak('Good morning Ethan. Todays date is '+month+' '+day+', '+str(current_time.year)+'. The weather outside is currently '+weather+' degrees and '+info+'.')
 
     def stop(self):
         pass
