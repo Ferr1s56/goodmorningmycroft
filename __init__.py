@@ -20,7 +20,7 @@ from mycroft import MycroftSkill, intent_handler
 import datetime
 import requests
 from bs4 import BeautifulSoup
-
+import random
 
 
 
@@ -54,31 +54,26 @@ class GoodMorningSkill(MycroftSkill):
         soup = BeautifulSoup(res.text,'html.parser')   
         info = soup.select('#wob_dc')[0].getText().strip() 
         weather = soup.select('#wob_tm')[0].getText().strip()
+        month = current_time.month
+        numbertomonth = {
+            '1': ['january'],
+            '2': ['february'],
+            '3': ['march'],
+            '4': ['april'],
+            '5': ['may'],
+            '6': ['june'],
+            '7': ['july'],
+            '8': ['august'],
+            '9': ['september'],
+            '10': ['october'],
+            '11': ['november'],
+            '12': ['december'],
+}
 
-        if (str(current_time.month) == '3'):
-            month = 'March'
-        elif (str(current_time.month) == '1'):
-            month = 'January'
-        elif (str(current_time.month) == '2'):
-            month = 'February'
-        elif (str(current_time.month) == '4'):
-            month = 'April'
-        elif (str(current_time.month) == '5'):
-            month = 'May'
-        elif (str(current_time.month) == '6'):
-            month = 'June'
-        elif (str(current_time.month) == '7'):
-            month = 'July'
-        elif (str(current_time.month) == '8'):
-            month = 'August'
-        elif (str(current_time.month) == '9'):
-            month = 'September'
-        elif (str(current_time.month) == '10'):
-            month = 'October'
-        elif (str(current_time.month) == '11'):
-            month = 'November'
-        elif (str(current_time.month) == '12'):
-            month = 'December'
+        try:
+            month = random.choice(numbertomonth[str(month)])
+        except:
+            month = 'undefined'
         
         self.speak('Good morning Ethan. Todays date is '+month+' '+str(current_time.day)+', '+str(current_time.year)+'. The weather outside is currently '+weather+' degrees and '+info+'.')
 
