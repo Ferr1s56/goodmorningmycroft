@@ -102,15 +102,26 @@ class GoodMorningSkill(MycroftSkill):
             '30': ['thirtieth'],
             '31': ['thirty first'],
         }
+        numbertoweek = {
+            '0': ['monday'],
+            '1': ['tuesday'],
+            '2': ['wednesday'],
+            '3': ['thursday'],
+            '4': ['friday'],
+            '5': ['saturday'],
+            '6': ['sunday'],
+        }
 
         try:
             month = random.choice(numbertomonth[str(month)])
             day = random.choice(numbertodate[str(current_time.day)])
+            weekday = random.choice(numbertoweek[str(datetime.datetime.now().weekday())])
         except:
             month = 'undefined'
             day = 'undefined'
+            weekday = 'undefined'
         
-        self.speak('Good morning Ethan. Todays date is '+month+' '+day+', '+str(current_time.year)+'. The weather outside is currently '+weather+' degrees and '+info+'.')
+        self.speak('Good morning Ethan. Todays date is '+weekday+', '+month+' '+day+', '+str(current_time.year)+'. The weather outside is currently '+weather+' degrees and '+info+'.')
 
     def stop(self):
         pass
