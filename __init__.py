@@ -46,10 +46,6 @@ class GoodMorningSkill(MycroftSkill):
     def handle_good_morning_intent(self, message):
         current_time = datetime.datetime.now() 
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
-        data = requests.get(
-            url = 'https://api.hypixel.net/resources/skyblock/election'
-        ).json()
-        mayor = (data['mayor']['name'])
         res = requests.get(f'https://www.google.com/search?q=Lansdale+weather&oq=Lansdale+weather&aqs=chrome.0.35i39l2j0l4j46j69i60.6128j1j7&sourceid=chrome&ie=UTF-8',headers=headers)
         soup = BeautifulSoup(res.text,'html.parser')   
         info = soup.select('#wob_dc')[0].getText().strip() 
